@@ -63,13 +63,13 @@ False : Bool
 | """
 "\n  hello\n  world\n  " : String
 ```
-@[5-8](REPLで複数行入力するには、\を行末に付けます。)
 
 +++
 
 ## リテラル: List
 
 ```elm
+-- Seq(1, 2, 3, 4, 5)
 > [1, 2, 3, 4, 5]
 [1,2,3,4,5] : List number
 > [1, "a"]
@@ -106,12 +106,15 @@ But the 2nd is:
 ## リテラル: レコード
 
 ```elm
+-- case class Record(x: Int, y: Int, z: Int)
+-- val record = Record(1, 2, 3)
 > record = {x = 1, y = 2, z = 3}
 { x = 1, y = 2, z = 3 } : { x : number, y : number1, z : number2 }
 > record.x
 1 : number
 > .y record
 2 : number
+-- record.copy(x = 10, z = record.y + 20)
 > { record | x = 10, z = record.y + 20 }
 { x = 10, y = 2, z = 22 } : { y : number1, x : number, z : number1 }
 ```
@@ -132,6 +135,7 @@ But the 2nd is:
 ## 関数
 
 ```elm
+-- type Name = String
 > type alias Name = String
 > type alias Age = Int
 > type alias User = { name: Name, age: Age }
@@ -147,6 +151,7 @@ getName (User "john" 15)
 ## 関数
 
 ```elm
+-- ADT(sealed trait, case class)
 > type Name = Name String
 > type Age = Age Int
 > type alias User = { name: Name, age: Age }
@@ -167,6 +172,7 @@ But it is:
 ## 関数
 
 ```elm
+-- case class Container[T](v: T)
 > type Container a = Container a
 > Container 1
 Container 1 : Repl.Container number
@@ -195,6 +201,7 @@ Container (1,"abc") : Repl.Container ( number, String )
 ## 関数
 
 ```elm
+-- ((h:Int) => (h ^ 2) * stdBMI) 1.75
 > (\h -> (h ^ 2) * stdBMI) 1.75
 67.375 : Float
 > bmi = (\h -> (h ^ 2) * stdBMI)
@@ -207,6 +214,7 @@ Container (1,"abc") : Repl.Container ( number, String )
 ```elm
 > 10 + 5 -- 二項演算子は中置記法が使える関数です。
 15 : number
+-- 演算子すべてメソッド・・・あれ？Scalaかな？
 > (+) 10 5 -- 丸括弧で括ることで、通常の関数のように前置記法で記述できます。
 15 : number
 > True && False
@@ -241,6 +249,7 @@ True : Bool
 ## let式
 
 ```elm
+-- お行儀の良いブロック式 { val a = 10; a + 5 }
 > let a = 10 in a + 5
 15 : number
 > let px x = toString x ++ "px" in (px 10, px 5)
@@ -278,6 +287,7 @@ circle r =
 ```elm
 > powerLevel = 10000
 10000 : number
+-- if (powerLevel > 9000) "OVER 9000!!!" else "meh"
 > if powerLevel > 9000 then "OVER 9000!!!" else "meh"
 "OVER 9000!!!" : String
 > String.length (if powerLevel > 9000 then "OVER 9000!!!" else "meh")
@@ -300,21 +310,6 @@ pushKey key n =
 > pushKey 40 5
 6 : number
 ```
-
-@[4-10](else節にif式をネストすることも可能。大きくスペースを取るインデントも見やすい。)
-
-+++
-
-## if式まとめ
-
-- ifはelse節とセットで値を確実に返す式として定義できます
-- ifは式なので、ネストさせることができます
-
-+++
-
-## プチ演習: if式
-
-- if同士の演算(if式同士の足し算など)を試してみましょう。
 
 ---
 
@@ -470,3 +465,17 @@ Ok 1 : Result.Result String number
 Err "n must be a positive number." : Result.Result String number
 ```
 
+
+## Elmに無いもの
+
+### 確実にScala, Haskellより楽ちんです。
+
+- 型クラス(Implicit)
+- コンパイル時計算(型レベルプログラミング)
+- モナ・・・ do(for)式
+
+---
+
+## デモ
+
+### 最近業務時間で作ったもの
