@@ -210,7 +210,7 @@ Container (1,"abc") : Repl.Container ( number, String )
 ## 関数
 
 ```elm
--- ((h:Int) => (h ^ 2) * stdBMI) 1.75
+-- ((h:Double) => (h ^ 2) * stdBMI)(1.75)
 > (\h -> (h ^ 2) * stdBMI) 1.75
 67.375 : Float
 > bmi = (\h -> (h ^ 2) * stdBMI)
