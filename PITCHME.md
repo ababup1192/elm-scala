@@ -474,6 +474,18 @@ Ok 1 : Result.Result String number
 Err "n must be a positive number." : Result.Result String number
 ```
 
+---
+
+## 高階関数
+
+```elm
+-- (1 to 100).filter(_ % 2 == 0).map(_ * 2)
+> List.range 1 100 |> List.filter (\x -> x % 2 == 0) |> List.map (\x -> x * 2)
+[4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96,100,104,108,112,116,120,124,128,132,136,140,144,148,152,156,160,164,168,172,176,180,184,188,192,196,200]
+    : List Int
+```
+
+---
 
 ## Elmに無いもの
 
